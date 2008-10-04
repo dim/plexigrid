@@ -1,0 +1,19 @@
+.plexigrid-header th div, 
+.plexigrid-body td div,
+.plexigrid-shadow div  { overflow:hidden; }
+.plexigrid-search-panel input,
+.plexigrid-panel input { vertical-align: middle; }
+
+* html .plexigrid-header,
+* html .plexigrid-title,
+* html .plexigrid-search-panel,
+* html .plexigrid-panel,
+* html .plexigrid-vgrip,
+* html .plexigrid-body { width: 100%; }
+
+* html .plexigrid-header, 
+* html .plexigrid-panel { height: 1%; }
+
+/* Add this line if IE6 is annoying you with a horizontal scroll-bar
+  * html { overflow-x: none; }
+*/

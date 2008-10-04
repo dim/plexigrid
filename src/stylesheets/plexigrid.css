@@ -1,0 +1,322 @@
+.plexigrid {
+  position: relative;
+  border: 0px solid #eee;
+  overflow: hidden;
+  color: #000;
+  line-height: normal;
+}
+
+.plexigrid a          { outline:none; }
+.plexigrid-hidden     { height: 26px !important; border-bottom: 1px solid #aaa; }
+.plexigrid-lightbox   { background: #fff; z-index:999; position: absolute; }
+
+.plexigrid table      { width: auto; margin: 0; table-layout: auto; }
+.plexigrid-body table  { margin-bottom: 10px; }
+.plexigrid-body table.plexigrid-auto-height { border-bottom: 0; margin-bottom: 0; }
+
+.plexigrid-header {
+  background: #fafafa url(../images/plexigrid/fhbg.gif) repeat-x bottom;
+  position: relative;
+  border: 1px solid #ccc;
+  border-bottom: 0px;
+  overflow: hidden;
+}
+.plexigrid-header-box { float: left; padding-right: 40px; }
+
+.plexigrid-header table {
+  border-right: 1px solid #fff;
+}
+
+
+.plexigrid-body {
+  border: 1px solid #ccc;
+  border-top: 0px;
+  background: #fff;
+  overflow: auto;
+  position: relative;
+}
+
+.plexigrid-body table { border-bottom: 1px solid #ccc; }
+
+.plexigrid-header th,
+.plexigrid-body td {
+  padding: 0;
+  text-align: left;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #fff;
+  overflow: hidden;
+}
+
+.plexigrid-header th div,
+.plexigrid-body td div,
+.plexigrid-shadow div { padding: 5px; border-left: 0; }
+
+.plexigrid-header th,
+.plexigrid-shadow {
+  font-weight: normal;
+  height: 24px;
+  cursor: default;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.plexigrid-shadow {
+  background: #fafafa url(../images/plexigrid/fhbg.gif) repeat-x bottom;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
+
+
+.plexigrid-header th.plexigrid-sorted {
+  background: url(../images/plexigrid/wbg.gif) repeat-x 0px -1px;
+  border-bottom: 0px solid #ccc;
+}
+
+.plexigrid-header th.plexigrid-sorted div {
+  border-bottom: 0px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.plexigrid-header th:hover div,
+.plexigrid-header th.plexigrid-hover div {
+  border-bottom: 1px solid orange;
+  padding-bottom: 4px;
+}
+
+.plexigrid-header th .plexigrid-s-desc {
+  background: url(../images/plexigrid/dn.png) no-repeat center 1px;
+}
+
+.plexigrid-header th .plexigrid-s-asc {
+  background: url(../images/plexigrid/up.png) no-repeat center 1px;
+}
+
+.plexigrid-header th .plexigrid-left {
+  background: url(../images/plexigrid/left.gif) no-repeat center left;
+}
+
+.plexigrid-header th .plexigrid-right {
+  background: url(../images/plexigrid/right.gif) no-repeat center right;
+}
+
+.plexigrid-body td {
+  border-bottom: 1px solid #fff;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.plexigrid-body td div {
+  border-top: 0px solid #fff;
+  padding-bottom: 4px;
+}
+
+.plexigrid-body td.plexigrid-sorted {
+  background: #f3f3f3;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.plexigrid-body tr.plexigrid-odd td {
+  background: #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.plexigrid-body tr.plexigrid-odd td.plexigrid-sorted {
+  background: #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.plexigrid-body tr:hover td,
+.plexigrid-body tr:hover td.plexigrid-sorted {
+  background: #d9ebf5;
+  border-left: 1px solid #eef8ff;
+  border-bottom: 1px dotted #a8d8eb;
+}
+
+.plexigrid-body tr.plexigrid-selected td.sorted,
+.plexigrid-body tr.plexigrid-selected td {
+  background: #d5effc url(../images/plexigrid/hl.png) repeat-x top;
+  border-right: 1px solid #d2e3ec;
+  border-left: 1px solid #eef8ff;
+  border-bottom: 1px solid #a8d8eb;
+}
+
+.plexigrid-drags,
+.plexigrid-drags div { float: left; position: absolute; }
+.plexigrid-drags     { z-index: 2; overflow: visible; }
+.plexigrid-drags div { height: 24px; width: 5px; cursor: col-resize; }
+.plexigrid-drags div:hover,
+.plexigrid-drags div.hover,
+.plexigrid-drags .plexigrid-dragging {
+  background: url(../images/plexigrid/line.gif) repeat-y 2px center;
+}
+
+.plexigrid-vgrip {
+  height: 5px;
+  overflow: hidden;
+  position: relative;
+  background: #fafafa url(../images/plexigrid/wbg.gif) repeat-x 0px -1px;
+  border: 1px solid #ccc;
+  border-top: 0px;
+  text-align: center;
+  cursor: row-resize;
+}
+.plexigrid-vgrip span {
+  display: block;
+  margin: 1px auto;
+  width: 20px;
+  height: 1px;
+  overflow: hidden;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  background: none;
+}
+
+
+.plexigrid-hgrip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 5px;
+  width: 5px;
+  background: url(../images/plexigrid/line.gif) repeat-x center;
+  margin-right: 1px;
+  cursor: col-resize;
+}
+.plexigrid-hgrip:hover,
+.plexigrid-hgrip.plexigrid-hover {
+  border-right: 1px solid #999;
+  margin-right: 0;
+}
+
+.plexigrid-search-panel {
+  font-size: 90%;
+  background: url(../images/plexigrid/bg.gif) repeat-x;
+  border:1px solid #ccc; border-top: 0;
+  padding: 0.25em 5px;
+}
+.plexigrid-search-panel input { margin-left: 0.1em; }
+
+
+.plexigrid-title {
+  background: url(../images/plexigrid/wbg.gif) repeat-x top;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  border-top: 0;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.plexigrid-title div {
+  padding: 6px;
+  white-space: nowrap;
+}
+
+.plexigrid-title .plexigrid-title-toggle {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  padding: 0;
+  height: 16px;
+  width: 16px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display:block;
+}
+
+.plexigrid-title .plexigrid-title-toggle:hover {
+  background-position: left -2px;
+  border-color: #bbb;
+}
+
+.plexigrid-title .plexigrid-title-toggle span {
+  display: block;
+  border-left: 1px solid #eee;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ddd;
+  width: 14px;
+  height: 14px;
+  background: url(../images/plexigrid/uup.png) no-repeat center;
+}
+
+.plexigrid-title .plexigrid-title-toggle.plexigrid-visible span {
+  background: url(../images/plexigrid/ddn.png) no-repeat center;
+}
+
+.plexigrid-ct-button {
+  position:absolute;
+  top: 3px;
+  right: 3px;
+  padding: 0;
+  height: 16px;
+  width: 16px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.plexigrid-ct-button:hover {
+  background-position: left -2px;
+  border-color: #bbb;
+}
+
+.plexigrid-ct-button span {
+  display: block;
+  border-left: 1px solid #eee;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ddd;
+  width: 14px;
+  height: 14px;
+  background: #eee url(../images/plexigrid/ddn.png) no-repeat center;
+}
+
+.plexigrid-ct-selector {
+  background: #eee url(../images/plexigrid/line.gif) repeat-y -1px top;
+  border: 1px solid #ccc;
+  border-top: 0;
+  overflow: auto;
+  position: absolute;
+  z-index: 999;
+}
+
+.plexigrid-ct-selector td    { border: 1px solid #eee; padding: 2px; }
+.plexigrid-ct-selector div   { float:left; width: 22px; border-right: 1px solid #ccc; }
+.plexigrid-ct-selector input { vertical-align: middle; padding:0; }
+.plexigrid-ct-selector label { margin-left: 23px; display:block; padding: 2px 1em 2px 0.5em; border-left: 1px solid #fff; }
+.plexigrid-ct-selector td:hover,
+.plexigrid-ct-selector td.hover {
+  background: #d5effc url(../images/plexigrid/hl.png) repeat-x top;
+  border: 1px solid #a8d8eb;
+}
+
+.plexigrid-panel {
+  background: url(../images/plexigrid/wbg.gif) repeat-x 0 -1px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.plexigrid-panel select      { margin:1px 0; }
+.plexigrid-button            { width: 22px; height: 22px; border: 0; overflow: hidden; display:block; float: left; text-decoration:none; }
+.plexigrid-button:hover      { width: 20px; height: 20px; border: 1px solid #ccc; }
+.plexigrid-button span       { width: 20px; height: 20px; display: block; cursor:pointer; }
+.plexigrid-button:hover span { width: 19px; height: 19px; border: 1px solid #fff; border-right:0; border-bottom:0; }
+.plexigrid-separator         { height: 22px; border-left: 1px solid #ccc; border-right: 1px solid #fff; float: left; margin: 0 4px; }
+
+.plexigrid-button-search   { background: url(../images/plexigrid/magnifier.png) no-repeat center; }
+.plexigrid-button-first    { background: url(../images/plexigrid/first.gif) no-repeat center; }
+.plexigrid-button-previous { background: url(../images/plexigrid/prev.gif) no-repeat center; }
+.plexigrid-button-next     { background: url(../images/plexigrid/next.gif) no-repeat center; }
+.plexigrid-button-last     { background: url(../images/plexigrid/last.gif) no-repeat center; }
+
+.plexigrid-button-reload   { background: url(../images/plexigrid/load.png) no-repeat center; }
+.plexigrid-loading .plexigrid-button-reload { background-image: url(../images/plexigrid/load.gif); }
+
+.plexigrid-panel-content     { padding: 3px; float: left;  }
+.plexigrid-panel-content div { float: left; margin: 0 4px; }
+
+.plexigrid-page { width: 4em; }
+.plexigrid-item-info { line-height: 23px; }

@@ -1,0 +1,8 @@
+
+body { background: #f8f8f8; font-family: Arial, Helvetica, sans-serif; font-size: 80%; margin: 4em; }
+h2 { border-bottom: 2px solid #ddd; color: #000; font-weight: normal; padding: 0 0 0.5em; margin: 0 0 1em; }
+
+a { color: #999; font-weight: bold; text-decoration: none; }
+a:hover { color: #555; }
+
+#source { background: #fff; border: 2px solid #ddd; height: 200px; overflow: auto; padding: 0 2em; }

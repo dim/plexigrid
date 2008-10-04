@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>plexiGrid - Examples</title>
+    <script src="../lib/javascript/prototype.js" type="text/javascript"></script>
+    <script src="../lib/javascript/plexigrid.js" type="text/javascript"></script>
+    <link href="examples.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../lib/stylesheets/plexigrid.css" media="screen" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 8]><link href="../lib/stylesheets/plexigrid-ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+	</head>
+	<body>
+
+	  <h2>Example #1: Extend tables</h2>
+
+    <p><a href="#" onclick="$('source').toggle(); return false;">View source</a></p>
+    
+    <pre id="source" style="display: none;"><code>
+&lt;table id=&quot;table&quot;&gt;
+&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th width=&quot;60&quot; align=&quot;center&quot;&gt;ISO&lt;/th&gt;
+    &lt;th width=&quot;240&quot;&gt;Name&lt;/th&gt;
+    &lt;th width=&quot;60&quot;&gt;ISO3&lt;/th&gt;  
+    &lt;th width=&quot;200&quot;&gt;Printable Name&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;  
+
+&lt;tbody&gt;
+  &lt;tr&gt;
+    &lt;td&gt;AF&lt;/td&gt;
+    &lt;td&gt;AFGHANISTAN&lt;/td&gt;
+    &lt;td&gt;AFG&lt;/td&gt;
+
+    &lt;td&gt;Afghanistan&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;AL&lt;/td&gt;
+    &lt;td&gt;ALBANIA&lt;/td&gt;
+    &lt;td&gt;ALB&lt;/td&gt;
+    &lt;td&gt;Albania&lt;/td&gt;
+  &lt;/tr&gt;    
+  ...
+  
+&lt;/tbody&gt;    
+&lt;/table&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+  PlexiGrid.extend('table', {width: 800, height: 300});    
+//]]&gt;
+&lt;/script&gt;
+    </code></pre>  
+
+    
+<table id="table">
+<thead>
+  <tr>
+    <th width="60" align="center">ISO</th>
+    <th width="240">Name</th>
+    <th width="60">ISO3</th>
+    <th width="200" visible="false">Printable Name</th>
+  </tr>
+</thead>  
+
+<tbody>
+  <tr>
+    <td>AF</td>
+    <td>AFGHANISTAN</td>
+    <td>AFG</td>
+
+    <td>Afghanistan</td>
+  </tr>    
+  <tr>
+    <td>AL</td>
+    <td>ALBANIA</td>
+    <td>ALB</td>
+    <td>Albania</td>
+  </tr>    
+  <tr>
+    <td>DZ</td>
+    <td>ALGERIA</td>
+    <td>DZA</td>
+    <td>Algeria</td>
+  </tr>    
+  <tr>
+    <td>AS</td>
+    <td>AMERICAN SAMOA</td>
+    <td>ASM</td>
+    <td>American Samoa</td>
+  </tr>    
+  <tr>
+    <td>AD</td>
+    <td>ANDORRA</td>
+    <td>AND</td>
+    <td>Andorra</td>
+  </tr>    
+  <tr>
+    <td>AO</td>
+    <td>ANGOLA</td>
+    <td>AGO</td>
+    <td>Angola</td>
+  </tr>    
+  <tr>
+    <td>AI</td>
+    <td>ANGUILLA</td>
+    <td>AIA</td>
+    <td>Anguilla</td>
+  </tr>    
+  <tr>
+    <td>AG</td>
+    <td>ANTIGUA AND BARBUDA</td>
+    <td>ATG</td>
+    <td>Antigua and Barbuda</td>
+  </tr>    
+  <tr>
+    <td>AR</td>
+    <td>ARGENTINA</td>
+    <td>ARG</td>
+    <td>Argentina</td>
+  </tr>    
+  <tr>
+    <td>AM</td>
+    <td>ARMENIA</td>
+    <td>ARM</td>
+    <td>Armenia</td>
+  </tr>    
+  <tr>
+    <td>AW</td>
+    <td>ARUBA</td>
+    <td>ABW</td>
+    <td>Aruba</td>
+  </tr>    
+  <tr>
+    <td>AU</td>
+    <td>AUSTRALIA</td>
+    <td>AUS</td>
+    <td>Australia</td>
+  </tr>    
+  <tr>
+    <td>AT</td>
+    <td>AUSTRIA</td>
+    <td>AUT</td>
+    <td>Austria</td>
+  </tr>    
+  <tr>
+    <td>AZ</td>
+    <td>AZERBAIJAN</td>
+    <td>AZE</td>
+    <td>Azerbaijan</td>
+  </tr>    
+  <tr>
+    <td>BS</td>
+    <td>BAHAMAS</td>
+    <td>BHS</td>
+    <td>Bahamas</td>
+  </tr>    
+  <tr>
+    <td>BH</td>
+    <td>BAHRAIN</td>
+    <td>BHR</td>
+    <td>Bahrain</td>
+  </tr>    
+  <tr>
+    <td>BD</td>
+    <td>BANGLADESH</td>
+    <td>BGD</td>
+    <td>Bangladesh</td>
+  </tr>    
+  <tr>
+    <td>BB</td>
+    <td>BARBADOS</td>
+    <td>BRB</td>
+    <td>Barbados</td>
+  </tr>    
+  <tr>
+    <td>BY</td>
+    <td>BELARUS</td>
+    <td>BLR</td>
+    <td>Belarus</td>
+  </tr>    
+  <tr>
+    <td>BE</td>
+    <td>BELGIUM</td>
+    <td>BEL</td>
+    <td>Belgium</td>
+  </tr>    
+  <tr>
+    <td>BZ</td>
+    <td>BELIZE</td>
+    <td>BLZ</td>
+    <td>Belize</td>
+  </tr>    
+  <tr>
+    <td>BJ</td>
+    <td>BENIN</td>
+    <td>BEN</td>
+    <td>Benin</td>
+  </tr>    
+  <tr>
+    <td>BM</td>
+    <td>BERMUDA</td>
+    <td>BMU</td>
+    <td>Bermuda</td>
+  </tr>    
+  <tr>
+    <td>BT</td>
+    <td>BHUTAN</td>
+    <td>BTN</td>
+    <td>Bhutan</td>
+  </tr>    
+  <tr>
+    <td>BO</td>
+    <td>BOLIVIA</td>
+    <td>BOL</td>
+    <td>Bolivia</td>
+  </tr>    
+  <tr>
+    <td>BA</td>
+    <td>BOSNIA AND HERZEGOVINA</td>
+    <td>BIH</td>
+    <td>Bosnia and Herzegovina</td>
+  </tr>    
+  <tr>
+    <td>BW</td>
+    <td>BOTSWANA</td>
+    <td>BWA</td>
+    <td>Botswana</td>
+  </tr>    
+  <tr>
+    <td>BR</td>
+    <td>BRAZIL</td>
+    <td>BRA</td>
+    <td>Brazil</td>
+  </tr>    
+  <tr>
+    <td>BN</td>
+    <td>BRUNEI DARUSSALAM</td>
+    <td>BRN</td>
+    <td>Brunei Darussalam</td>
+  </tr>    
+  <tr>
+    <td>BG</td>
+    <td>BULGARIA</td>
+    <td>BGR</td>
+    <td>Bulgaria</td>
+  </tr>    
+</tbody>    
+</table>
+
+<script type="text/javascript">
+//<![CDATA[
+  PlexiGrid.extend('table', {width: 800, height: 300});    
+//]]>
+</script>
+        
+	</body>
+</html>  

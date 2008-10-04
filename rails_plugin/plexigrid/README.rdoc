@@ -1,0 +1,140 @@
+== plexiGrid - Rails Plugin
+
+This plugin provides a simple set of tools that simplyfy the integration of plexiGrid into 
+your Rails application. Although it can be used stand-alone, some parts are explicitely 
+require will_paginate (gem or plugin) to be installed). 
+
+== General Usage
+
+If you intend to use the helper methods, please include the +PlexiGrid::Helper+ into you your +ApplicationHelper+   
+
+app/helpers/application_helper.rb:
+
+  module ApplicationHelper
+    include PlexiGrid::Helper    
+  end
+
+
+== Example #1: Searchable and paginated plexiGrid
+
+app/models/country.rb:
+  
+  class Country
+  	
+  	def printable_name
+  		name.titleize
+  	end
+  	
+  end
+  
+
+app/controllers/countries_controller.rb:
+
+	class CountriesController < ApplicationController
+	  helper_method :sanitized_order, :serialize_options, :column_model
+	
+	  def index
+	    @countries = Country.paginate :page => params[:page], 
+	      :per_page => params[:per_page], 
+	      :total_entries => params[:total_entries],
+	      :conditions => params[:term].blank? ? nil : ['LOWER(name) LIKE ?', "%#{params[:term].strip.downcase}%"],
+	      :order => sanitized_order.to_sql
+	    respond_to :html, :json
+	  end
+	  
+	  protected
+	  
+	    def column_model
+		    @column_model ||= PlexiGrid::ColumnModel.new do |m|
+		      m.column :name, 180, :sortable => true
+		      m.column :iso, 80, :align => 'center', :label => 'ISO', :sortable => true, :sql => 'countries.iso'
+		      m.column :iso3, 80, :label => 'ISO3', :sortable => true
+		      m.column :printable_name, 200, :invisible => true
+		    end
+	    end
+
+	    def serialize_options
+	      { :only => [:name, :iso3, :iso], :methods => [:printable_name] }      
+	    end
+	    
+	    def sanitized_order
+	      column_model.order(params[:order], :default => 'name DESC')
+	    end
+	
+	end
+
+
+app/views/countries/index.html.erb:
+
+	<%= plexigrid @countries.to_plexigrid_options(
+		:column_model => column_model,
+		:serialize => serialize_options,
+		:url => url_for( :format => 'json' ),
+		:title => 'Countries',
+		:allow_table_toggle => true,
+		:search => true,
+		:sorting => true,
+		:pagination => true,
+		:width => 800 ).merge(sanitized_order) %>
+
+
+app/views/countries/index.json.erb:
+
+	<%= @countries.to_plexigrid_options(:serialize => serialize_options).to_json %>
+
+
+== Example #2: plexiGrid with custom data formatting
+
+This is useful when you want to use plexiGrid to display more than just raw data 
+(e.g. Links, Images, etc.). The plugin provides an option to extend the serializer object with a 
+custom Helper.   
+
+Please note: All public methods within a helper will be automatically serialized.
+
+app/controllers/countries_controller.rb:
+
+	class CountriesController < ApplicationController
+	  helper_method :sanitized_order, :serialize_options, :column_model
+	
+	  def index
+			... # as in Example #1
+	  end
+	  
+	  protected
+	  
+	    def column_model
+		    @column_model ||= PlexiGrid::ColumnModel.new do |m|
+		      m.column :flag, 40
+		      m.column :name, 180, :sortable => true
+		      m.column :iso, 80, :align => 'center', :label => 'ISO', :sortable => true, :sql => 'countries.iso'
+		      m.column :iso3, 80, :label => 'ISO3', :sortable => true
+		    end
+	    end
+
+	    def serialize_options
+	      { :only => [:iso3, :iso], :extend => [self, PlexiGrid::CountriesHelper] }      
+	    end
+	    
+	    def sanitized_order
+				... # as in Example #1
+	    end
+	
+	end
+
+app/helpers/plexi_grid/countries_helper.rb:
+
+	module Plexigrid::CountriesHelper
+	  
+	  def flag(country)
+	    image_tag "flags/#{country.iso.downcase}.gif", :alt => country.iso, :title => country.name 
+	  end
+	  
+	  def name(country)
+	  	link_to h(country.name), country_path(country) 
+	  end
+	  
+	end
+
+
+
+Copyright (c) 2008 Dimitrij Denissenko, released under the MIT license
