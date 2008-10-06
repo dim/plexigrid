@@ -8,7 +8,7 @@
 
 .plexigrid a          { outline:none; }
 .plexigrid-hidden     { height: 26px !important; border-bottom: 1px solid #aaa; }
-.plexigrid-lightbox   { background: #fff; z-index:999; position: absolute; }
+.plexigrid-lightbox   { background: #fff; z-index:30; position: absolute; }
 
 .plexigrid table      { width: auto; margin: 0; table-layout: auto; }
 .plexigrid-body table  { margin-bottom: 10px; }
@@ -78,7 +78,7 @@
 }
 
 .plexigrid-header th:hover div,
-.plexigrid-header th.plexigrid-hover div {
+.plexigrid-header th.hover div {
   border-bottom: 1px solid orange;
   padding-bottom: 4px;
 }
@@ -127,12 +127,18 @@
 }
 
 .plexigrid-body tr:hover td,
-.plexigrid-body tr:hover td.plexigrid-sorted {
+.plexigrid-body tr:hover td.plexigrid-sorted,
+.plexigrid-body tr.hover td,
+.plexigrid-body tr.hover td.plexigrid-sorted {
   background: #d9ebf5;
   border-left: 1px solid #eef8ff;
   border-bottom: 1px dotted #a8d8eb;
 }
 
+.plexigrid-body tr.plexigrid-selected.plexigrid-odd td.sorted,
+.plexigrid-body tr.plexigrid-selected.plexigrid-odd td,
+.plexigrid-body tr.plexigrid-selected.plexigrid-even td.sorted,
+.plexigrid-body tr.plexigrid-selected.plexigrid-even td,
 .plexigrid-body tr.plexigrid-selected td.sorted,
 .plexigrid-body tr.plexigrid-selected td {
   background: #d5effc url(../images/plexigrid/hl.png) repeat-x top;
@@ -143,7 +149,7 @@
 
 .plexigrid-drags,
 .plexigrid-drags div { float: left; position: absolute; }
-.plexigrid-drags     { z-index: 2; overflow: visible; }
+.plexigrid-drags     { z-index: 10; overflow: visible; }
 .plexigrid-drags div { height: 24px; width: 5px; cursor: col-resize; }
 .plexigrid-drags div:hover,
 .plexigrid-drags div.hover,
@@ -279,7 +285,7 @@
   border-top: 0;
   overflow: auto;
   position: absolute;
-  z-index: 999;
+  z-index: 20;
 }
 
 .plexigrid-ct-selector td    { border: 1px solid #eee; padding: 2px; }

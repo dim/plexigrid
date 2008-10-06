@@ -352,7 +352,7 @@ PlexiGrid.Grid = Class.create({
     this.options.records.each(function(record){
       var tr = new Element('tr');
       if (this.options.allowRowSelect) tr.observe('click', function() { tr.toggleClassName('plexigrid-selected'); });
-      if (i % 2 == 0) tr.addClassName('plexigrid-odd');
+      tr.addClassName((i % 2 == 0) ? 'plexigrid-odd' : 'plexigrid-even');
 
       this.columns.each(function(th){
         var td = Object.extend($(document.createElement('td')), {name: th.name});
