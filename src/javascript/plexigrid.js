@@ -247,7 +247,7 @@ PlexiGrid.Grid = Class.create({
     if (this.options.currentPage > this.options.totalPages) this.options.currentPage = this.options.totalPages;
     if (this.options.currentPage < 1) this.options.currentPage = 1;
 
-    if (typeof options['searchTerm'] == 'string') {
+    if (options && typeof options['searchTerm'] == 'string') {
       this.options.currentPage = 1;
       this.options.totalEntries = 0;
     }
