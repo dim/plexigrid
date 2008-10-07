@@ -127,12 +127,22 @@
 }
 
 .plexigrid-body tr:hover td,
+.plexigrid-body tr.plexigrid-totals:hover td,
 .plexigrid-body tr:hover td.plexigrid-sorted,
 .plexigrid-body tr.hover td,
 .plexigrid-body tr.hover td.plexigrid-sorted {
   background: #d9ebf5;
   border-left: 1px solid #eef8ff;
   border-bottom: 1px dotted #a8d8eb;
+}
+
+.plexigrid-body tr.plexigrid-totals td {
+  background: #ddd;
+  border-top: 1px solid #999;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #bbb;
+  border-bottom: 0;
+  font-weight: bold;
 }
 
 .plexigrid-body tr.plexigrid-selected td.plexigrid-sorted,

@@ -26,7 +26,8 @@
 .plexigrid-body td.plexigrid-sorted {background:#f3f3f3;border-right:1px solid #ddd;border-bottom:1px solid #f3f3f3;}
 .plexigrid-body tr.plexigrid-odd td {background:#f7f7f7;border-bottom:1px solid #f7f7f7;}
 .plexigrid-body tr.plexigrid-odd td.plexigrid-sorted {background:#e3e3e3;border-bottom:1px solid #e3e3e3;}
-.plexigrid-body tr:hover td, .plexigrid-body tr:hover td.plexigrid-sorted, .plexigrid-body tr.hover td, .plexigrid-body tr.hover td.plexigrid-sorted {background:#d9ebf5;border-left:1px solid #eef8ff;border-bottom:1px dotted #a8d8eb;}
+.plexigrid-body tr:hover td, .plexigrid-body tr.plexigrid-totals:hover td, .plexigrid-body tr:hover td.plexigrid-sorted, .plexigrid-body tr.hover td, .plexigrid-body tr.hover td.plexigrid-sorted {background:#d9ebf5;border-left:1px solid #eef8ff;border-bottom:1px dotted #a8d8eb;}
+.plexigrid-body tr.plexigrid-totals td {background:#ddd;border-top:1px solid #999;border-left:1px solid #eee;border-right:1px solid #bbb;border-bottom:0;font-weight:bold;}
 .plexigrid-body tr.plexigrid-selected td.plexigrid-sorted, .plexigrid-body tr.plexigrid-selected td {background:#d5effc url(../images/plexigrid/hl.png) repeat-x top;border-right:1px solid #d2e3ec;border-left:1px solid #eef8ff;border-bottom:1px solid #a8d8eb;}
 .plexigrid-drags, .plexigrid-drags div {float:left;position:absolute;}
 .plexigrid-drags {z-index:10;overflow:visible;}

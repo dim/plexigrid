@@ -79,6 +79,7 @@ var PlexiGrid = {
     url: null,                    // URL for AJAX calls
     ajaxOptions: {method: 'get'}, // Options for AJAX calls
     records: [],                  // Records place holder
+    totals: false,                // Totals row
 
     pagination: false,            // use pagination
     perPage: 15,                  // items per page
@@ -345,37 +346,45 @@ PlexiGrid.Grid = Class.create({
     }.bind(this));
   },
 
-  _loadData: function() { // optimized for performance
+  _loadData: function() {
     var tbody = this.table.down('tbody').clearDescendants();
-
     var i = 0;
     this.options.records.each(function(record){
-      var tr = new Element('tr');
-      if (this.options.allowRowSelect) tr.observe('click', function() { tr.toggleClassName('plexigrid-selected'); });
-      tr.addClassName((i % 2 == 0) ? 'plexigrid-odd' : 'plexigrid-even');
-
-      this.columns.each(function(th){
-        var td = Object.extend($(document.createElement('td')), {name: th.name});
-        if (!th.visible()) td.hide();
-
-        var value = record[th.name] == null ? '' : String(record[th.name]);
-        var content = value.blank() ? '&nbsp;' : value;
-        var style = 'text-align:'+th.align+';'+
-          'width:'+th.box.style.width+';' +
-          (this.options.nowrap ? '' : 'white-space:normal;');
-        var klass = '';
-
-        if (this.options.sorting && th.name == this.options.sortName) {
-          td.addClassName('plexigrid-sorted');
-          klass = 'plexigrid-s-' + this.options.sortDir;
-        };
-
-        var title = record[th.titleize] ? record[th.titleize] : (th.titleize ? value : '');
-        td.innerHTML = '<div style="'+style+'" class="'+klass+'" title="'+title+'">'+content+'</div>';
-        tr.insert(td);
-      }.bind(this));
+      var tr = this._buildRow(record, (i % 2 == 0) ? 'plexigrid-odd' : 'plexigrid-even');
       tbody.insert(tr); i++;
     }.bind(this));
+    if (this.options.totals) {
+      var tr = this._buildRow(this.options.totals, ((i % 2 == 0) ? 'plexigrid-odd' : 'plexigrid-even') + ' plexigrid-totals');
+      tbody.insert(tr);
+    }
+  },
+
+  _buildRow: function(record, className){ // optimized for performance
+    var tr = Object.extend($(document.createElement('tr')), { 'className': className });
+    if (this.options.allowRowSelect)
+      tr.observe('click', function() { tr.toggleClassName('plexigrid-selected') });
+
+    this.columns.each(function(th){
+      var td = Object.extend($(document.createElement('td')), { name: th.name });
+      if (!th.visible()) td.hide();
+
+      var value = record[th.name] == null ? '' : String(record[th.name]);
+      var content = value.blank() ? '&nbsp;' : value;
+      var style = 'text-align:' + th.align + ';' + 'width:' + th.box.style.width + ';' +
+        (this.options.nowrap ? '' : 'white-space:normal;');
+      var klass = '';
+
+      if (this.options.sorting && th.name == this.options.sortName) {
+        td.addClassName('plexigrid-sorted');
+        klass = 'plexigrid-s-' + this.options.sortDir;
+      };
+
+      var title = record[th.titleize] ? record[th.titleize] : (th.titleize ? value : '');
+      td.innerHTML = '<div style="'+style+'" class="'+klass+'" title="'+title+'">'+content+'</div>';
+      tr.insert(td);
+    }.bind(this));
+
+    return tr;
   },
 
   _processTables: function(){
