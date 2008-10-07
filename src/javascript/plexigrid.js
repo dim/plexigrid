@@ -111,6 +111,7 @@ var PlexiGrid = {
     allowColumnsResize: true,     // allow to resize columns
 
     cookieName: '__PlexiGrid__',  // Name of the cookie
+    cookieOptions: {},            // Cookie options, e.g. { 'expires': 'Fri, 01 Jan 2010 08:00:00 GMT', 'domain': 'mydomain.com' }
     storeStyle: false,            // Store style in cookie
     applyStyle: false,            // Apply style from cookie
     styleName: 'default',         // Name of the style
@@ -193,9 +194,12 @@ PlexiGrid.Grid = Class.create({
 
     if (!this.cookie[this.options.styleName]) this.cookie[this.options.styleName] = {};
     this.cookie[this.options.styleName][key] = value;
-		try {
-			document.cookie = this.options.cookieName + "=" + escape(Object.toJSON(this.cookie));
-		} catch(e) {}
+    try {
+      var options = $H(this.options.cookieOptions).map(function(pair) {
+        return pair.key + '=' + pair.value;
+      }).join(';');
+      document.cookie = this.options.cookieName + "=" + escape(Object.toJSON(this.cookie)) + (options.blank() ? '' : ';' + options);
+    } catch(e) {}
   },
 
   findCells: function(name) {
@@ -290,8 +294,8 @@ PlexiGrid.Grid = Class.create({
   _readCookie: function() {
     if (!this.options.applyStyle) return;
 
-		var cookies = document.cookie.match(this.options.cookieName + '=(.*?)(;|$)');
-		if (cookies) this.cookie = (unescape(cookies[1])).evalJSON();
+    var cookies = document.cookie.match(this.options.cookieName + '=(.*?)(;|$)');
+    if (cookies) this.cookie = (unescape(cookies[1])).evalJSON();
 
     var style = this.cookie[this.options.styleName];
     if (style) this.applyStyle(style, this.table.down('thead'));
