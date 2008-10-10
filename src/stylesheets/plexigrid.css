@@ -327,8 +327,10 @@
 .plexigrid-button-reload   { background: url(../images/plexigrid/load.png) no-repeat center; }
 .plexigrid-loading .plexigrid-button-reload { background-image: url(../images/plexigrid/load.gif); }
 
-.plexigrid-panel-content     { padding: 3px; float: left;  }
+.plexigrid-panel-content     { padding: 3px; }
 .plexigrid-panel-content div { float: left; margin: 0 4px; }
+.plexigrid-panel-left        { float: left; }
+.plexigrid-panel-right       { float: right; }
 
 .plexigrid-page { width: 4em; }
 .plexigrid-item-info { line-height: 23px; }

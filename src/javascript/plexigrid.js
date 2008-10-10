@@ -499,9 +499,9 @@ PlexiGrid.Container.Header = {
 
 PlexiGrid.Container.Body = {
   create: function(grid) {
-    var height = grid.options.height == 'auto' ? 'auto' : grid.options.height;
-    var element = PlexiGrid.Container.create(grid, 'div', 'plexigrid-body').
-      setStyle({ 'height': height + 'px' });
+    var element = PlexiGrid.Container.create(grid, 'div', 'plexigrid-body');
+    if (grid.options.height != 'auto' || !Prototype.Browser.IE)
+      element.style.height = grid.options.height + 'px';
     return element.
       observe('scroll', this.doScroll.bindAsEventListener(element)).
       observe('mouseover', this.mouseOver.bindAsEventListener(element));
@@ -662,7 +662,7 @@ PlexiGrid.Container.Panel = {
   create: function(grid) {
     return PlexiGrid.Container.create(grid, 'div', 'plexigrid-panel').
       extend(this.Methods).
-      update('<div class="plexigrid-panel-content"></div>');
+      update('<div class="plexigrid-panel-content plexigrid-panel-left"></div><div class="plexigrid-panel-content plexigrid-panel-right"></div>');
   }
 };
 
@@ -673,12 +673,12 @@ PlexiGrid.Container.Panel.Methods = {
     this.entryInformation = new Element('div', {className: 'plexigrid-item-info'});
 
     if(this.grid.options.search) {
-      this.down('div').
+      this.down('div.plexigrid-panel-left').
         insert(this._createSearchButton()).
         insert(PlexiGrid.Button.separator());
     }
     if (this.grid.options.pagination) {
-      this.down('div').
+      this.down('div.plexigrid-panel-left').
         insert(this._reloadPerPageSelector()).
         insert(PlexiGrid.Button.separator()).
         insert(this._createNavigator('first')).
@@ -750,7 +750,7 @@ PlexiGrid.Container.Panel.Methods = {
 
   _toggleSearch: function(){
     this.grid.searchPanel.toggle();
-    this.grid.searchPanel.down('input').focus();
+    if (this.grid.searchPanel.visible()) this.grid.searchPanel.down('input').focus();
   },
 
   _createNavigator: function(name) {
