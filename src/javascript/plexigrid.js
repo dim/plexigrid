@@ -110,7 +110,7 @@ var PlexiGrid = {
     allowColumnsSwap: true,       // allow to swap columns
     allowColumnsResize: true,     // allow to resize columns
 
-    cookieName: '__PlexiGrid__',  // Name of the cookie
+    cookiePrefix: '__plexigrid',  // Profix of each style cookie
     cookieOptions: {},            // Cookie options, e.g. { 'expires': 'Fri, 01 Jan 2010 08:00:00 GMT', 'domain': 'mydomain.com' }
     storeStyle: false,            // Store style in cookie
     applyStyle: false,            // Apply style from cookie
@@ -181,24 +181,20 @@ PlexiGrid.Grid = Class.create({
 
   columnModel: function(){
     return this.columns.map(function(column) {
-      return ['name', 'align', 'invisible'].inject($H({}), function(result, key) {
-        result.set(key, column[key]); return result;
-      }).merge({
-        'width': parseInt(column.box.style.width)
-      }).toObject();
+      return [column['name'], column['align'], column['invisible'], parseInt(column.box.style.width)];
     });
   },
 
   storeStyle: function(key, value) {
     if (!this.options.storeStyle) return;
 
-    if (!this.cookie[this.options.styleName]) this.cookie[this.options.styleName] = {};
-    this.cookie[this.options.styleName][key] = value;
+    if (!this.cookie) this.cookie = {};
+    this.cookie[key] = value;
     try {
       var options = $H(this.options.cookieOptions).map(function(pair) {
         return pair.key + '=' + pair.value;
       }).join(';');
-      document.cookie = this.options.cookieName + "=" + escape(Object.toJSON(this.cookie)) + (options.blank() ? '' : ';' + options);
+      document.cookie = this.options.cookiePrefix + '_' + this.options.styleName + "=" + escape(Object.toJSON(this.cookie)) + (options.blank() ? '' : ';' + options);
     } catch(e) {}
   },
 
@@ -232,9 +228,11 @@ PlexiGrid.Grid = Class.create({
 
     if (style.columnModel) {
       style.columnModel.each(function(colStyle) {
-        var column = this.columns.find(function(c) { return c.name == colStyle.name });
+        var column = this.columns.find(function(c) { return c.name == colStyle[0] });
         if (column) {
-          $H(colStyle).keys().without('name').each(function(key){ column[key] = colStyle[key] });
+          column['align'] = colStyle[1]; 
+          column['invisible'] = colStyle[2];
+          column['width'] = colStyle[3];
           this.columns.last().insert({'after': column});
           this.columns = container.select('th');
         }
@@ -294,11 +292,11 @@ PlexiGrid.Grid = Class.create({
   _readCookie: function() {
     if (!this.options.applyStyle) return;
 
-    var cookies = document.cookie.match(this.options.cookieName + '=(.*?)(;|$)');
-    if (cookies) this.cookie = (unescape(cookies[1])).evalJSON();
-
-    var style = this.cookie[this.options.styleName];
-    if (style) this.applyStyle(style, this.table.down('thead'));
+    var cookies = document.cookie.match(this.options.cookiePrefix + '_' + this.options.styleName + '=(.*?)(;|$)');
+    if (cookies) {
+      this.cookie = (unescape(cookies[1])).evalJSON();
+      this.applyStyle(this.cookie, this.table.down('thead'));
+    }
   },
 
   _initializeContainers: function() {
@@ -383,7 +381,7 @@ PlexiGrid.Grid = Class.create({
         klass = 'plexigrid-s-' + this.options.sortDir;
       };
 
-      var title = record[th.titleize] ? record[th.titleize] : (th.titleize ? value : '');
+      var title = Object.isString(record[th.titleize]) ? record[th.titleize] : (th.titleize ? value : '');
       td.innerHTML = '<div style="'+style+'" class="'+klass+'" title="'+title+'">'+content+'</div>';
       tr.insert(td);
     }.bind(this));
