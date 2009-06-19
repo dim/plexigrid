@@ -198,6 +198,12 @@ PlexiGrid.Grid = Class.create({
     } catch(e) {}
   },
 
+  resetStyle: function() {
+    try {
+      document.cookie = this.options.cookiePrefix + '_' + this.options.styleName + "=; expires=" + new Date().toGMTString();
+    } catch(e) {}
+  },
+
   findCells: function(name) {
     return this.table.select('td').select(function(td) { return td.name == name });
   },
@@ -802,13 +808,13 @@ PlexiGrid.Button = {
     return new Element('div', {className:'plexigrid-separator'});
   },
 
-  create: function(className, title) {
-    return new Element('a', {
+  create: function(className, title, options) {
+    return new Element('a', $H({
       'className': 'plexigrid-button ' + className,
       'href'     : '#',
       'onclick'  : "return false;",
       'title'    : title
-    }).insert('<span></span>');
+    }).merge(options || {}).toObject()).insert('<span></span>');
   }
 };
 
