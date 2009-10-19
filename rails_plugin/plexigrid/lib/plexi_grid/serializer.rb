@@ -1,7 +1,9 @@
 module PlexiGrid
   class Serializer < ActiveRecord::Serialization::Serializer
     
-    class Wrapper      
+    class Wrapper
+      include ActionView::Helpers
+      
       @@cache = {}
       
       class << self
@@ -33,10 +35,14 @@ module PlexiGrid
       def initialize(controller, *helpers)
         @controller = controller
         @attribute_names = helpers.flatten.map(&:public_instance_methods).flatten
-        (ActionView::Base.helper_modules + helpers).each do |helper|
+        helpers.each do |helper|
           extend helper
         end
         self.class.cache!(self, *helpers)
+      end
+
+      def params
+        controller.params
       end
 
       def respond_to?(selector)
@@ -44,7 +50,7 @@ module PlexiGrid
       end
       
       def method_missing(selector, *args)
-        ActionController::Routing::Routes.named_routes.helpers.include?(selector) ? controller.send!(selector, *args) : super
+        ActionController::Routing::Routes.named_routes.helpers.include?(selector) ? controller.send(selector, *args) : super
       end
     end
 

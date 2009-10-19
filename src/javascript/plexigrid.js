@@ -16,7 +16,7 @@ Element.addMethods({
 });
 
 var PlexiGrid = {
-  Version: '0.4',
+  Version: '0.4.1',
 
   create: function(element, options, labels) {
     element = $(element);
@@ -185,6 +185,17 @@ PlexiGrid.Grid = Class.create({
     });
   },
 
+  fullColumnModel: function(){
+    return this.columnModel().map(function(column) {
+      return { 
+        'name'      : column[0], 
+        'align'     : column[1], 
+        'invisible' : column[2], 
+        'width'     : column[3]
+      };
+    });
+  },
+
   storeStyle: function(key, value) {
     if (!this.options.storeStyle) return;
 
@@ -202,6 +213,7 @@ PlexiGrid.Grid = Class.create({
     try {
       document.cookie = this.options.cookiePrefix + '_' + this.options.styleName + "=; expires=" + new Date().toGMTString();
     } catch(e) {}
+    return this;
   },
 
   findCells: function(name) {
@@ -368,7 +380,7 @@ PlexiGrid.Grid = Class.create({
   },
 
   _buildRow: function(record, className){ // optimized for performance
-    var tr = Object.extend($(document.createElement('tr')), { 'className': className });
+    var tr = $(document.createElement('tr')).addClassName(className);
     if (this.options.allowRowSelect)
       tr.observe('click', function() { tr.toggleClassName('plexigrid-selected') });
 
@@ -531,7 +543,7 @@ PlexiGrid.Container.Title = {
       element.update('<div class="plexigrid-title-label">' + grid.options.title + '</div>');
 
       if (grid.options.allowTableToggle) {
-        var button = new Element('a', {className: 'plexigrid-title-toggle', title: grid.labels.toggleTable});
+        var button = new Element('a', {title: grid.labels.toggleTable}).addClassName('plexigrid-title-toggle');
         element.insert(button.insert('<span></span>'));
         button.observe('click', this.toggleGrid.bindAsEventListener(button, grid));
       }
@@ -674,7 +686,7 @@ PlexiGrid.Container.Panel.Methods = {
   populate: function(){
     this.pageSelector = new Element('div');
     this.perPageSelector = new Element('div');
-    this.entryInformation = new Element('div', {className: 'plexigrid-item-info'});
+    this.entryInformation = new Element('div').addClassName('plexigrid-item-info');
 
     if(this.grid.options.search) {
       this.down('div.plexigrid-panel-left').
@@ -722,7 +734,7 @@ PlexiGrid.Container.Panel.Methods = {
   },
 
   _reloadPerPageSelector: function(){
-    var element = new Element('select', {className: 'plexigrid-per-page'});
+    var element = new Element('select').addClassName('plexigrid-per-page');
     element.observe('change', function(element){ this.grid.reload({ perPage: element.value }); }.bind(this, element));
 
     this.grid.options.perPageChoices.sort().each(function(choice){
@@ -805,16 +817,17 @@ PlexiGrid.Container.SearchPanel = {
 
 PlexiGrid.Button = {
   separator: function() {
-    return new Element('div', {className:'plexigrid-separator'});
+    return new Element('div').addClassName('plexigrid-separator');
   },
 
   create: function(className, title, options) {
     return new Element('a', $H({
-      'className': 'plexigrid-button ' + className,
       'href'     : '#',
       'onclick'  : "return false;",
       'title'    : title
-    }).merge(options || {}).toObject()).insert('<span></span>');
+    }).merge(options || {}).toObject()).
+      addClassName('plexigrid-button ' + className).
+      insert('<span></span>');
   }
 };
 
@@ -971,7 +984,7 @@ PlexiGrid.Event.SwapColumn = Class.create(PlexiGrid.Event.Base, {
     $super(grid, event, 'pointer');
     this.columnOver = null;
     this.column = column;
-    this.shadow = new Element('div', {className: 'plexigrid-shadow'}).
+    this.shadow = new Element('div').addClassName('plexigrid-shadow').
       setStyle({'position':'absolute', 'float':'left'}).
       setOpacity(0.7).
       update(column.innerHTML).

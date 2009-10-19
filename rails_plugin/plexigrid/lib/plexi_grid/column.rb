@@ -4,7 +4,7 @@ module PlexiGrid
     attr_reader :name, :width, :options
     
     def initialize(name, width, options = {})      
-      @name, @width, @options = name.to_s, width.to_i, options.symbolize_keys      
+      @name, @width, @options = name.to_s, width.to_i, options.symbolize_keys
     end
     
     def sortable?
